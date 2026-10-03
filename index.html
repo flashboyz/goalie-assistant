@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Личный вратарский помощник</title>
+<style>
+:root{--bg:#f4f7fb;--card:#fff;--text:#14233a;--muted:#5b6b82;--accent:#1f6fd1;--on:#fff;--ok:#1b8a4b;--bad:#c23b3b;--line:#d7e0ec;--rink:#cfdaea;--rr:#ecc3c3;--rb:#bfd0f0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1624;--card:#17233a;--text:#e8eef8;--muted:#9fb0c8;--accent:#5aa2ff;--on:#0e1624;--ok:#4cc27f;--bad:#ff7b7b;--line:#2a3b58;--rink:#243652;--rr:#4d2d38;--rb:#24467a}}
+:root[data-theme="dark"]{--bg:#0e1624;--card:#17233a;--text:#e8eef8;--muted:#9fb0c8;--accent:#5aa2ff;--on:#0e1624;--ok:#4cc27f;--bad:#ff7b7b;--line:#2a3b58;--rink:#243652;--rr:#4d2d38;--rb:#24467a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 -apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+main{max-width:640px;margin:0 auto;padding:16px}
+h1{font-size:22px;margin:4px 0 2px}h2{font-size:16px;margin:0 0 6px}
+.sub,.muted{color:var(--muted);font-size:14px}.sub{margin:0 0 14px}
+nav{display:flex;gap:6px;margin-bottom:14px}
+nav button{flex:1;padding:10px 4px;border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:10px;font-size:14px;cursor:pointer}
+nav button.on{background:var(--accent);color:var(--on);border-color:var(--accent);font-weight:600}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:12px}
+.card ol{margin:0;padding-left:22px}.card li{margin:0 0 12px;font-size:17px}
+.sec ul{margin:6px 0;padding-left:20px}
+.btn{display:inline-block;padding:11px 16px;border-radius:10px;border:0;background:var(--accent);color:var(--on);font-size:15px;font-weight:600;cursor:pointer;margin:4px 6px 4px 0}
+.btn.alt{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.opt{display:block;width:100%;text-align:left;margin:8px 0;padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-size:15px;cursor:pointer}
+.opt.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 18%,var(--card))}
+.opt.bad{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 18%,var(--card))}
+.exp{margin:10px 0;color:var(--muted);font-size:14px}
+.banner{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 16%,var(--card))}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+label{font-size:13px;color:var(--muted);display:block}
+input,select,textarea{width:100%;padding:9px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font:inherit;font-size:15px}
+.row{display:flex;justify-content:space-between;gap:8px;align-items:center;border-top:1px solid var(--line);padding:8px 0;font-size:14px}
+.row:first-child{border-top:0}
+.x{background:none;border:0;color:var(--bad);font-size:18px;cursor:pointer}
+.bg{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+.bg *{fill:none;stroke-width:3}
+.card{box-shadow:0 2px 10px rgba(20,35,58,.07)}
+h1{background:linear-gradient(90deg,var(--accent),var(--ok));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<svg class="bg" viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+<rect x="20" y="20" width="360" height="760" rx="90" style="stroke:var(--rink)"/>
+<line x1="20" y1="400" x2="380" y2="400" style="stroke:var(--rr);stroke-width:6"/>
+<circle cx="200" cy="400" r="55" style="stroke:var(--rb)"/>
+<line x1="20" y1="290" x2="380" y2="290" style="stroke:var(--rb);stroke-width:7"/>
+<line x1="20" y1="510" x2="380" y2="510" style="stroke:var(--rb);stroke-width:7"/>
+<line x1="38" y1="85" x2="362" y2="85" style="stroke:var(--rr)"/>
+<line x1="38" y1="715" x2="362" y2="715" style="stroke:var(--rr)"/>
+<path d="M160 85 A40 40 0 0 0 240 85 Z" style="stroke:var(--rb)"/>
+<path d="M160 715 A40 40 0 0 1 240 715 Z" style="stroke:var(--rb)"/>
+<circle cx="100" cy="180" r="42" style="stroke:var(--rr)"/><circle cx="300" cy="180" r="42" style="stroke:var(--rr)"/>
+<circle cx="100" cy="620" r="42" style="stroke:var(--rr)"/><circle cx="300" cy="620" r="42" style="stroke:var(--rr)"/>
+<circle cx="100" cy="180" r="4" style="fill:var(--rr)"/><circle cx="300" cy="180" r="4" style="fill:var(--rr)"/>
+<circle cx="100" cy="620" r="4" style="fill:var(--rr)"/><circle cx="300" cy="620" r="4" style="fill:var(--rr)"/>
+</svg>
+<main>
+<h1>🥅 Личный вратарский помощник</h1>
+<p class="sub">Прочитай, послушай, проверь себя, запиши итоги.</p>
+<nav>
+<button data-t="card" class="on">Карточка</button><button data-t="quiz">Квиз</button><button data-t="audio">Аудио</button><button data-t="diary">Дневник</button>
+</nav>
+
+<section id="card">
+<div class="card" id="gameBox"><h2>Ближайшая игра</h2>
+<label>Дата и время</label><input type="datetime-local" id="gt">
+<p id="gstat" class="muted"></p>
+<p class="muted">Страница не может сама прислать уведомление, пока закрыта. Поставь напоминание за час в календаре телефона: «Вратарский помощник: прочитать карточку».</p></div>
+<div class="card"><h2>Подготовка перед игрой</h2><ol id="prepList"></ol></div>
+<div class="card"><h2>Помни на льду</h2><ol id="cardList"></ol></div>
+<button class="btn" id="cardPlay">▶ Слушать всё</button>
+<button class="btn alt" data-stop>■ Стоп</button>
+</section>
+
+<section id="quiz" hidden></section>
+
+<section id="audio" hidden>
+<p class="muted">Озвучка голосом телефона. Скорость:
+<select id="rate" style="width:auto"><option value="0.85">медленно</option><option value="1" selected>нормально</option><option value="1.15">быстро</option></select></p>
+<div id="secs"></div>
+<button class="btn" id="allPlay">▶ Слушать всё подряд</button>
+<button class="btn alt" data-stop>■ Стоп</button>
+<p class="muted" id="msg"></p>
+</section>
+
+<section id="diary" hidden>
+<div class="card"><h2>Итоги игры</h2>
+<div class="grid">
+<div><label>Дата</label><input type="date" id="dd"></div>
+<div><label>Соперник</label><input id="dop" placeholder="Название"></div>
+<div><label>Бросков всего</label><input type="number" min="0" id="dsh"></div>
+<div><label>Голов всего</label><input type="number" min="0" id="dg"></div>
+<div><label>Бросков после 4-го гола</label><input type="number" min="0" id="dsa"></div>
+<div><label>Голов после 4-го гола</label><input type="number" min="0" id="dga"></div>
+<div><label>Настроение / спокойствие (1–5)</label><select id="dm"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
+<div><label>Заметка</label><input id="dn" placeholder="Что моё / команды / невезение"></div>
+</div>
+<label style="margin-top:8px"><input type="checkbox" id="dns" style="width:auto"> Без статистики (тренировка): достаточно настроения</label>
+<p class="muted" id="derr" style="color:var(--bad)"></p>
+<button class="btn" id="dsave">Сохранить</button></div>
+<div class="card" id="dsum"></div>
+<div class="card" id="dlist"></div>
+<p class="muted">Данные хранятся только в этом браузере на этом телефоне.</p>
+</section>
+</main>
+<script>
+function $(id){return document.getElementById(id)}
+function ld(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function each(sel,f){Array.prototype.forEach.call(document.querySelectorAll(sel),f)}
+var prep=["Рутина: одни и те же действия в одном порядке — сборы, еда, дорога, раздевалка.", "За 30 минут до игры убираю телефон и лишние разговоры.", "Визуализация 2–3 минуты: вижу два-три сэйва и свой ритуал после гола.", "Три цели на процесс: глаза на шайбе, первое движение вовремя, ритуал после гола. Не «ноль голов».", "Разминка: в первых бросках ровная стойка и глаза на шайбе.", "Перед выходом: пять медленных вдохов (вдох на 4, выдох на 6) и слово настроя."];
+var card=["Следующая шайба не зависит от прошлых. 4–5 голов при большой нагрузке — это математика.","После гола 3 секунды: выдох, два касания штанги, «Давай, следующая».","Вина — после игры, в дневник. Сейчас только шайба.","Закипаю: вдох на 4, выдох на 6, называю, где шайба: слева, у борта, в центре.","Свисток — вода и 5 медленных вдохов. «Якорь» напомнит одним словом, я не спорю."];
+var secs=[{t:"Ментальная подготовка",i:["Рутина: одни и те же действия в одном порядке — сборы, еда, дорога, раздевалка.", "За 30 минут до игры убираю телефон и лишние разговоры.", "Визуализация 2–3 минуты: вижу два-три сэйва и свой ритуал после гола.", "Три цели на процесс: глаза на шайбе, первое движение вовремя, ритуал после гола. Не «ноль голов».", "Разминка: в первых бросках ровная стойка и глаза на шайбе.", "Перед выходом: пять медленных вдохов (вдох на 4, выдох на 6) и слово настроя."]},{t:"Перед игрой",i:["Следующая шайба не зависит от прошлых.","Моя задача — следующий бросок, а не счёт.","План на четвёртый гол решён заранее: сброс, вдох, вода.","Якорь сказал слово — я не отвечаю и не спорю."]},{t:"После гола",i:["Три секунды: выдох, два касания штанги, слово «следующая».","Один вопрос: что я могу сделать по-другому на следующем таком броске?","Мысль «он виноват» откладываю до дневника."]},{t:"Когда закипаю",i:["Дыхание: вдох на четыре, выдох на шесть.","Тело спокойное, стойка ровная.","Если уже вскипел, не пытаюсь успокоиться. Называю, где шайба: слева, у борта, в центре.","Свисток — вода и пять медленных вдохов."]}];
+var quiz=[
+{q:"Пропущено 4 гола. Что делаешь первым?",o:["Ищу, кто ошибся","Ритуал сброса: выдох, касания штанги, «следующая»","Считаю, сколько ещё пропущу"],a:1,e:"Короткий привычный ритуал закрывает прошлый гол и возвращает внимание к шайбе."},
+{q:"В голове: «защитник виноват». Что делать?",o:["Сказать ему сразу","Подавить и сделать вид, что всё равно","Отложить до записи в дневник после игры"],a:2,e:"Разбор вины нужен, но после игры. Во время игры злость отнимает внимание у шайбы."},
+{q:"Какое дыхание лучше снижает возбуждение?",o:["Выдох длиннее вдоха","Быстрое глубокое дыхание","Задержка дыхания"],a:0,e:"Вдох на 4, выдох на 6 быстрее всего снижает напряжение."},
+{q:"Ты уже вскипел. Как сузить фокус?",o:["Заставить себя успокоиться","Про себя называть, где шайба","Вспоминать пропущенные голы"],a:1,e:"Простая задача вытесняет поиск виноватых. «Успокойся» в красной зоне не работает."},
+{q:"Что должен сделать «якорь» после гола?",o:["Сказать одно слово или стукнуть клюшкой","Разобрать ошибку","Произнести мотивационную речь"],a:0,e:"В красной зоне слова не работают, а короткий заранее отработанный сигнал работает."},
+{q:"Игра идёт на другой половине, шайб мало. Что делаешь?",o:["Расслабляюсь до следующего броска","Смотрю по сторонам","Слежу за шайбой и говорю с защитниками"],a:2,e:"Скучающая голова вредна так же, как злая. Занимай внимание."},{"q": "Как выстроить предыгровую рутину?", "o": ["Каждый раз по-разному, чтобы не наскучило", "Одни и те же действия в одном порядке", "Ничего не планировать"], "a": 1, "e": "Повторяющаяся последовательность сообщает мозгу «пора играть» и снижает тревогу."}, {"q": "Что делать на визуализации перед игрой?", "o": ["Представить, как пропускаешь, чтобы привыкнуть", "Представить два-три сэйва и свой ритуал после гола", "Представить итоговый счёт"], "a": 1, "e": "Мозг репетирует не только успех, но и реакцию на гол, поэтому в игре она уже знакома."}, {"q": "Какая цель на игру лучше?", "o": ["Не пропустить ни одного", "Отбить больше 30 бросков", "Глаза на шайбе, первое движение вовремя, ритуал после гола"], "a": 2, "e": "Цели на процесс зависят от тебя. Счёт и число бросков зависят и от команды."}, {"q": "На что настроить разминку?", "o": ["Просто отбыть время", "Первые броски: ровная стойка, глаза на шайбе", "Разговоры с друзьями"], "a": 1, "e": "Разминка нужна, чтобы войти в рабочий ритм и взгляд, а не только размяться."}, {"q": "Дыхание перед выходом на лёд?", "o": ["Пять медленных вдохов: на 4, выдох на 6", "Быстрые глубокие вдохи для бодрости", "Специально не дышать по-особому"], "a": 0, "e": "Длинный выдох снижает предстартовое напряжение, быстрое дыхание его усиливает."}, {"q": "Что такое слово настроя?", "o": ["Прозвище соперника", "Короткое слово, которое повторяешь перед игрой и после гола", "Лозунг, который кричит вся команда"], "a": 1, "e": "Одно привычное слово быстро возвращает собранность, особенно в сочетании с выдохом."}]
+
+/* карточка и ближайшая игра */
+var pl=$("prepList");prep.forEach(function(t){var li=document.createElement("li");li.textContent=t;pl.appendChild(li)});
+var cl=$("cardList");card.forEach(function(t){var li=document.createElement("li");li.textContent=t;cl.appendChild(li)});
+var gt=$("gt");gt.value=ld("gt","");
+function gupd(){var s=$("gstat"),b=$("gameBox");b.classList.remove("banner");
+if(!gt.value){s.textContent="Укажи время игры — подскажу, когда пора перечитать карточку.";return}
+var m=Math.round((new Date(gt.value)-new Date())/60000);
+if(isNaN(m)){s.textContent="";return}
+if(m>60){var h=Math.floor(m/60);s.textContent="До игры: "+(h>=24?Math.floor(h/24)+" дн. ":"")+(h%24)+" ч "+(m%60)+" мин."}
+else if(m>0){b.classList.add("banner");s.textContent="До игры "+m+" мин. Пора перечитать карточку и пройти квиз."}
+else if(m>-180){s.textContent="Игра идёт или только что закончилась. После неё запиши итоги в дневник."}
+else s.textContent="Игра прошла. Если не записал итоги, сделай это в дневнике."}
+gt.onchange=function(){sv("gt",gt.value);gupd()};gupd();setInterval(gupd,30000);
+
+/* аудио */
+var sc=$("secs");secs.forEach(function(s){var d=document.createElement("div");d.className="card sec";d.innerHTML="<h2></h2><ul></ul><button class='btn alt'>▶ Слушать</button>";d.querySelector("h2").textContent=s.t;s.i.forEach(function(x){var li=document.createElement("li");li.textContent=x;d.querySelector("ul").appendChild(li)});d.querySelector("button").onclick=function(){say(s.i.join(" "))};sc.appendChild(d)});
+function say(txt){var m=$("msg");if(!("speechSynthesis" in window)){m.textContent="Озвучка не поддерживается в этом браузере.";return}m.textContent="";speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(txt);u.lang="ru-RU";u.rate=parseFloat($("rate").value);var v=speechSynthesis.getVoices().filter(function(x){return x.lang&&x.lang.indexOf("ru")===0})[0];if(v)u.voice=v;speechSynthesis.speak(u)}
+function stop(){if("speechSynthesis" in window)speechSynthesis.cancel()}
+$("cardPlay").onclick=function(){say("Подготовка. "+prep.join(" ")+" Помни на льду. "+card.join(" "))};
+$("allPlay").onclick=function(){say(secs.map(function(s){return s.t+". "+s.i.join(" ")}).join(" "))};
+each("[data-stop]",function(b){b.onclick=stop});
+each("nav button",function(b){b.onclick=function(){stop();each("nav button",function(x){x.classList.toggle("on",x===b)});["card","quiz","audio","diary"].forEach(function(id){$(id).hidden=(id!==b.dataset.t)});if(b.dataset.t==="diary")dshow()}});
+
+/* квиз с сохранением результатов */
+var qi=0,score=0;
+function render(){var box=$("quiz");box.innerHTML="";var c=document.createElement("div");c.className="card";
+if(qi>=quiz.length){var h=ld("qh",[]);h.push(score);h=h.slice(-20);sv("qh",h);var best=Math.max.apply(null,h);
+c.innerHTML="<h2>Готово: "+score+" из "+quiz.length+"</h2><p class='muted'>"+(score===quiz.length?"Отлично, ты готов к игре.":"Перечитай карточку и пройди ещё раз.")+"<br>Лучший результат: "+best+" из "+quiz.length+". Прохождений: "+h.length+".</p>";
+var r=document.createElement("button");r.className="btn";r.textContent="Пройти ещё раз";r.onclick=function(){qi=0;score=0;render()};c.appendChild(r);box.appendChild(c);return}
+var q=quiz[qi];var t=document.createElement("h2");t.textContent=(qi+1)+"/"+quiz.length+". "+q.q;c.appendChild(t);
+var ex=document.createElement("div");ex.className="exp";var nx=document.createElement("button");nx.className="btn";nx.hidden=true;nx.textContent=qi+1<quiz.length?"Дальше":"Результат";nx.onclick=function(){qi++;render()};var done=false;
+q.o.forEach(function(tx,i){var b=document.createElement("button");b.className="opt";b.textContent=tx;b.onclick=function(){if(done)return;done=true;if(i===q.a)score++;Array.prototype.forEach.call(c.querySelectorAll(".opt"),function(x,k){if(k===q.a)x.classList.add("ok");else if(k===i)x.classList.add("bad")});ex.textContent=q.e;nx.hidden=false};c.appendChild(b)});
+c.appendChild(ex);c.appendChild(nx);box.appendChild(c)}
+render();
+
+/* дневник */
+$("dd").value=new Date().toISOString().slice(0,10);
+function pct(g,s){return s>0?(100*(1-g/s)).toFixed(1)+"%":"—"}
+function dshow(){var L=ld("dg",[]);var S=$("dsum"),B=$("dlist");
+if(!L.length){S.innerHTML="<h2>Сводка</h2><p class='muted'>Пока нет записей.</p>";B.innerHTML="";return}
+var sh=0,g=0,sa=0,ga=0,ms=0,mn=0;L.forEach(function(e){sh+=e.sh;g+=e.g;sa+=e.sa;ga+=e.ga;if(e.m){ms+=e.m;mn++}});
+S.innerHTML="<h2>Сводка: "+L.length+" записей</h2><div class='row'><span>% отражённых за всё время</span><b>"+pct(g,sh)+"</b></div><div class='row'><span>До 4-го гола</span><b>"+pct(g-ga,sh-sa)+"</b></div><div class='row'><span>После 4-го гола</span><b>"+pct(ga,sa)+"</b></div><div class='row'><span>Среднее настроение</span><b>"+(mn?(ms/mn).toFixed(1)+" из 5":"—")+"</b></div><p class='muted'>Выводы по «после 4-го гола» делай, когда там накопится бросков 50+: на малой выборке процент сильно скачет.</p>";
+B.innerHTML="<h2>Игры</h2>";
+L.slice().reverse().forEach(function(e,idx){var i=L.length-1-idx;var r=document.createElement("div");r.className="row";
+var a=document.createElement("span");a.textContent=e.d+" · "+(e.op||"без названия")+" · "+(e.ns?"без статистики":e.g+"/"+e.sh+" ("+pct(e.g,e.sh)+")")+(e.sa?" · после 4-го: "+pct(e.ga,e.sa):"")+(e.m?" · настр. "+e.m:"")+(e.n?" · "+e.n:"");
+var x=document.createElement("button");x.className="x";x.textContent="✕";x.title="Удалить";x.onclick=function(){var l=ld("dg",[]);l.splice(i,1);sv("dg",l);dshow()};r.appendChild(a);r.appendChild(x);B.appendChild(r)})}
+$("dsave").onclick=function(){var n=function(id){return parseInt($(id).value,10)};var sh=n("dsh"),g=n("dg"),sa=n("dsa")||0,ga=n("dga")||0,er=$("derr");
+var ns=$("dns").checked;if(ns){sh=0;g=0;sa=0;ga=0}
+if(!ns&&(isNaN(sh)||isNaN(g))){er.textContent="Укажи бросков и голов всего.";return}
+if(!ns&&(g>sh||ga>g||sa>sh||ga>sa)){er.textContent="Проверь числа: голов не может быть больше бросков, а «после 4-го» больше общих.";return}
+er.textContent="";var l=ld("dg",[]);l.push({d:$("dd").value,op:$("dop").value.trim(),sh:sh,g:g,sa:sa,ga:ga,ns:ns,m:parseInt($("dm").value,10)||0,n:$("dn").value.trim()});sv("dg",l);
+["dop","dsh","dg","dsa","dga","dn"].forEach(function(id){$(id).value=""});$("dm").value="";$("dns").checked=false;dshow()};
+</script>
+</body>
+</html>
