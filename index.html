@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Личный вратарский помощник</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=Russo+One&display=swap&subset=cyrillic">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=Russo+One&family=Marck+Script&family=Comfortaa:wght@300&display=swap&subset=cyrillic">
 <style>
 :root{--bg:#040b18;--bg2:#0c2d5a;--card:linear-gradient(160deg,rgba(20,56,110,.62),rgba(7,20,44,.82));--text:#f0f6ff;--muted:#8fb0d6;--accent:#3d9bff;--yel:#ffd21f;--on:#07111f;--ok:#4cc27f;--bad:#ff7b7b;--line:rgba(61,155,255,.45);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 :root[data-theme="light"]{--bg:#040b18}
@@ -78,12 +78,29 @@ nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:rgba(4,11,24,
 nav button{flex:1;background:none;border:0;color:#8fb0d6;font-size:11px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px}
 nav button .ic{width:23px;height:23px}nav button.on{color:#ffd21f;font-weight:700}
 button.mt{width:100%;text-align:left;cursor:pointer;color:var(--text);font:inherit}.chev{margin-left:auto;color:var(--accent);font-size:28px;line-height:1}
-.bw{position:relative;width:min(300px,80vw);height:min(300px,80vw);margin:18px auto}
+.bw{position:relative;width:min(360px,calc(100vw - 32px));height:min(360px,calc(100vw - 32px));margin:14px auto}
 .fl{position:absolute;inset:0}
-.fl i{position:absolute;left:50%;top:50%;width:42%;height:42%;margin:-21% 0 0 -21%;border-radius:50%;background:radial-gradient(circle at 50% 35%,rgba(150,210,255,.85),rgba(61,155,255,.2));border:1px solid rgba(160,215,255,.5);mix-blend-mode:screen;box-shadow:0 0 24px rgba(61,155,255,.5)}
+.fl i{position:absolute;left:50%;top:50%;width:46%;height:46%;margin:-23% 0 0 -23%;border-radius:50%;background:radial-gradient(circle at 50% 35%,rgba(150,210,255,.85),rgba(61,155,255,.2));border:1px solid rgba(160,215,255,.5);mix-blend-mode:screen;box-shadow:0 0 24px rgba(61,155,255,.5)}
 .bc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;text-shadow:0 0 12px #3d9bff}
 .bc b{font:400 28px "Russo One","Arial Black",-apple-system,Arial,sans-serif;text-transform:uppercase;letter-spacing:1px}.bc span{font-size:38px;font-weight:700;min-height:46px}
 .tg{display:flex;gap:8px;justify-content:center;margin:8px 0}.tg button{padding:9px 14px;border-radius:12px;border:1px solid var(--line);background:transparent;color:var(--muted);font-size:14px;cursor:pointer}.tg button.on{border-color:var(--yel);color:var(--text);box-shadow:0 0 12px rgba(255,210,31,.25)}
+#breath .hd{position:relative;justify-content:flex-start;min-height:74px}#breath .hd .bk{position:relative;z-index:2}
+.mf{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);text-align:center;pointer-events:none;font:700 54px/1.1 "Marck Script","Segoe Script","Brush Script MT",cursive;letter-spacing:.02em;text-shadow:0 0 8px rgba(160,210,255,.7),0 0 22px rgba(61,155,255,.6)}
+.pills{display:flex;justify-content:center;gap:10px;margin:6px 0 12px}
+.pills button{padding:6px 16px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);font-size:14px;cursor:pointer}
+.pills button.on{background:var(--yel);border-color:var(--yel);color:var(--on);font-weight:700;box-shadow:0 0 12px rgba(255,210,31,.35)}
+.cyc{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;max-width:260px;margin:8px auto 2px}
+.cyc i{width:9px;height:9px;border-radius:50%;border:1px solid rgba(61,155,255,.6)}
+.cyc i.d{background:var(--yel);border-color:var(--yel);box-shadow:0 0 8px rgba(255,210,31,.6)}
+.cyc i.c{border-color:var(--yel);animation:pl 1.2s infinite}
+@keyframes pl{50%{opacity:.3}}
+#bgo{width:auto;min-width:180px;padding:11px 28px;font-size:18px;display:block;margin:12px auto}
+#breath{display:flex;flex-direction:column;min-height:calc(100vh - 150px)}
+#breath .tg{margin-top:auto;padding-top:28px;opacity:.45}
+#breath .tg button{font-size:13px;padding:7px 12px}
+#breath .tg button.on{border-color:var(--line);box-shadow:none}
+.sub2{text-align:center;margin:0;font:300 14px/1.4 Comfortaa,"Trebuchet MS",-apple-system,Arial,sans-serif;letter-spacing:.04em;color:var(--muted);opacity:.6}
+.mt svg{filter:drop-shadow(0 0 3px #7fc0ff) drop-shadow(0 0 9px rgba(61,155,255,.85))}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -108,7 +125,7 @@ button.mt{width:100%;text-align:left;cursor:pointer;color:var(--text);font:inher
 </div>
 <button class="tile strip" id="strip"><svg class="ic"><use href="#i-cup"/></svg><span><b>Ближайший матч</b><small id="hstat"></small></span></button>
 <div class="card" id="gpanel" hidden><label>Дата и время игры</label><input type="datetime-local" id="gt"><p class="muted">Страница не пришлёт уведомление, пока закрыта: поставь напоминание за час в календаре телефона.</p></div>
-<button class="card mt" data-go="breath"><svg viewBox="0 0 60 40" aria-hidden="true"><path d="M2 38L22 8l10 14 8-10 18 26z" fill="#3d9bff" fill-opacity=".85"/><path d="M22 8l-6 9 6-3 4 4z" fill="#fff"/></svg><span><b style="color:#7fc0ff">Дыхание. Внимание. Действие.</b><br><span class="muted">Маленькие шаги делают большие результаты.</span></span><span class="chev">›</span></button>
+<button class="card mt" data-go="breath"><svg viewBox="0 0 60 60" aria-hidden="true"><g fill="#3d9bff" fill-opacity=".22" stroke="#b5deff" stroke-width="1.5"><circle cx="30" cy="19" r="11"/><circle cx="30" cy="19" r="11" transform="rotate(60 30 30)"/><circle cx="30" cy="19" r="11" transform="rotate(120 30 30)"/><circle cx="30" cy="19" r="11" transform="rotate(180 30 30)"/><circle cx="30" cy="19" r="11" transform="rotate(240 30 30)"/><circle cx="30" cy="19" r="11" transform="rotate(300 30 30)"/></g><circle cx="30" cy="30" r="3" fill="#ffd21f"/></svg><span><b style="color:#7fc0ff">Дыхание. Внимание. Действие.</b><br><span class="muted">Маленькие шаги делают большие результаты.</span></span><span class="chev">›</span></button>
 </section>
 
 <section id="card" hidden><header class="hd"><button class="bk" data-go="home" aria-label="Назад">‹</button><span style="visibility:hidden"></span><b>Карточки</b><span id="ccnt"></span></header><div class="pg"><i id="cpg"></i></div>
@@ -139,13 +156,14 @@ button.mt{width:100%;text-align:left;cursor:pointer;color:var(--text);font:inher
 <div class="card" id="dsum"></div><div class="card" id="dlist"></div>
 <p class="muted">Данные хранятся только в этом браузере на этом телефоне.</p>
 </section>
-<section id="breath" hidden><header class="hd"><button class="bk" data-go="home" aria-label="Назад">‹</button><span style="visibility:hidden"></span><b>Дыхание</b><span></span></header>
-<p class="muted" style="text-align:center;margin:0">Вдох 4 секунды, выдох 6 секунд. Следи за кругом.</p>
-<div class="bw"><div class="fl" id="fl"></div><div class="bc"><b id="btxt">Готов</b><span id="bcnt"></span></div></div>
-<div class="tabs" id="bdur"><button data-m="1">1 мин</button><button data-m="3" class="on">3 мин</button><button data-m="5">5 мин</button></div>
-<div class="tg"><button id="bsnd"></button><button id="bvb"></button></div>
-<p class="muted" style="text-align:center" id="bstat"></p>
+<section id="breath" hidden><header class="hd"><button class="bk" data-go="home" aria-label="Назад">‹</button><span style="visibility:hidden"></span><b class="mf">Дыхание</b><span></span></header>
+<p class="sub2">Вдох 4 секунды, выдох 6 секунд. Следи за кругом.</p>
+<div class="bw"><div class="fl" id="fl"></div><div class="bc"><b id="btxt"></b><span id="bcnt"></span></div></div>
+<div class="pills" id="bdur"><button data-s="30">30 сек</button><button data-s="60">1 мин</button><button data-s="180" class="on">3 мин</button></div>
+<div class="cyc" id="bdots"></div>
+<p class="muted" style="text-align:center;min-height:22px;margin:4px 0" id="bstat"></p>
 <button class="btn" id="bgo">Начать</button>
+<div class="tg"><button id="bvb"></button></div>
 </section>
 </main>
 <nav>
@@ -245,23 +263,22 @@ var gd=$("dgood").value.trim(),im=$("dimp").value.trim();if(ns&&!mood&&!gd&&!im)
 er.textContent="";var l=ld("dg",[]);l.push({d:$("dd").value,op:$("dop").value.trim(),sh:sh,g:g,sa:sa,ga:ga,ns:ns,m:mood,gd:gd,im:im});sv("dg",l);
 ["dop","dsh","dg","dsa","dga","dgood","dimp"].forEach(function(id){$(id).value=""});$("dns").checked=false;mood=0;rm();dshow()};
 /* дыхание 4-6 */
-var bt=null,bph="",bst=0,bend=0,bcyc=0,bmin=3,bwl=null;
+var bt=null,bph="",bst=0,bend=0,bcyc=0,bsec=180,bwl=null,bdone=false;
 (function(){var f=$("fl");for(var k=0;k<6;k++){var i=document.createElement("i");i.style.transform="rotate("+60*k+"deg) translateY(0)";i.style.opacity=".45";f.appendChild(i)}})();
-function bsay(){var r=Math.max(0,Math.round((bend-Date.now())/1000));$("bstat").textContent=bt?("Осталось "+Math.floor(r/60)+":"+("0"+r%60).slice(-2)+" · Циклов: "+bcyc):("Сессия "+bmin+" мин, около "+bmin*6+" циклов")}
-each("#bdur button",function(b){b.onclick=function(){if(bt)return;bmin=parseInt(b.dataset.m,10);each("#bdur button",function(x){x.classList.toggle("on",x===b)});bsay()}});
-function bset(ph){var s=ph==="in"?4:6;bph=ph;bst=Date.now();btone(ph);bvib(ph);Array.prototype.forEach.call($("fl").children,function(p,k){p.style.transition="transform "+s+"s ease-in-out,opacity "+s+"s ease-in-out";p.style.transform="rotate("+60*k+"deg) translateY("+(ph==="in"?"-42%":"0")+")";p.style.opacity=ph==="in"?".8":".45"});$("btxt").textContent=ph==="in"?"Вдох":"Выдох"}
+function bsay(){var N=bsec/10,r=Math.max(0,Math.round((bend-Date.now())/1000)),on=bt||bdone,h="";for(var i=0;i<N;i++)h+='<i class="'+(on&&i<bcyc?"d":bt&&i===bcyc?"c":"")+'"></i>';var d=$("bdots");if(d.dataset.k!==h){d.innerHTML=h;d.dataset.k=h}$("bstat").textContent=bt?Math.floor(r/60)+":"+("0"+r%60).slice(-2):""}
+each("#bdur button",function(b){b.onclick=function(){if(bt)return;bsec=parseInt(b.dataset.s,10);each("#bdur button",function(x){x.classList.toggle("on",x===b)});bsay()}});
+function bset(ph){var s=ph==="in"?4:6;bph=ph;bst=Date.now();bvib(ph);Array.prototype.forEach.call($("fl").children,function(p,k){p.style.transition="transform "+s+"s ease-in-out,opacity "+s+"s ease-in-out";p.style.transform="rotate("+60*k+"deg) translateY("+(ph==="in"?"-45%":"0")+")";p.style.opacity=ph==="in"?".8":".45"});$("btxt").textContent=ph==="in"?"Вдох":"Выдох"}
 function btick(){var s=bph==="in"?4:6,el=(Date.now()-bst)/1000;$("bcnt").textContent=Math.max(1,Math.ceil(s-el));if(el>=s){if(bph==="in")bset("out");else{bcyc++;if(Date.now()>=bend){bstop(true);return}bset("in")}}bsay()}
 function bstop(done){if(bt){clearInterval(bt);bt=null}try{if(bwl){bwl.release();bwl=null}}catch(e){}
 Array.prototype.forEach.call($("fl").children,function(p,k){p.style.transition="transform 1s ease-in-out,opacity 1s";p.style.transform="rotate("+60*k+"deg) translateY(0)";p.style.opacity=".45"});
-$("btxt").textContent=done?"Отлично!":"Готов";$("bcnt").textContent="";$("bgo").textContent="Начать";if(done)$("bstat").textContent="Готово: циклов "+bcyc+". Хорошая работа.";else bsay()}
-$("bgo").onclick=function(){if(bt){bstop();return}bcyc=0;bend=Date.now()+bmin*60000;$("bgo").textContent="Стоп";try{if(navigator.wakeLock)navigator.wakeLock.request("screen").then(function(l){bwl=l}).catch(function(){})}catch(e){}
+$("btxt").textContent="";$("bcnt").textContent="";$("bgo").textContent="Начать";bdone=!!done;bsay();if(done)$("bstat").textContent="Хорошая работа"}
+$("bgo").onclick=function(){if(bt){bstop();return}bcyc=0;bdone=false;bend=Date.now()+bsec*1000;$("bgo").textContent="Стоп";try{if(navigator.wakeLock)navigator.wakeLock.request("screen").then(function(l){bwl=l}).catch(function(){})}catch(e){}
 bset("in");bt=setInterval(btick,200);btick()};
-/* звук и вибрация: вдох и выдох звучат по-разному */
-var bs=ld("bs",{s:1,v:1}),bac=null;
-function btone(ph){if(!bs.s)return;try{bac=bac||new (window.AudioContext||window.webkitAudioContext)();if(bac.state==="suspended")bac.resume();var t=bac.currentTime,o=bac.createOscillator(),g=bac.createGain(),inh=ph==="in",f0=inh?330:440,f1=inh?523:262,d=inh?1.2:1.7;o.type="sine";o.frequency.setValueAtTime(f0,t);o.frequency.linearRampToValueAtTime(f1,t+d);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.2,t+.25);g.gain.linearRampToValueAtTime(0,t+d);o.connect(g);g.connect(bac.destination);o.start(t);o.stop(t+d+.05)}catch(e){}}
+/* вибрация */
+var bs=ld("bs",{v:1});
 function bvib(ph){if(!bs.v)return;try{if(navigator.vibrate)navigator.vibrate(ph==="in"?[70,70,70]:[320])}catch(e){}}
-function bsync(){[["bsnd","s","Звук"],["bvb","v","Вибрация"]].forEach(function(a){var b=$(a[0]);b.classList.toggle("on",!!bs[a[1]]);b.textContent=a[2]+": "+(bs[a[1]]?"вкл":"выкл")})}
-each(".tg button",function(b){b.onclick=function(){var k=b.id==="bsnd"?"s":"v";bs[k]=bs[k]?0:1;sv("bs",bs);bsync();if(bs[k]&&!bt)(k==="s"?btone:bvib)("in")}});bsync();
+function bsync(){var b=$("bvb");b.classList.toggle("on",!!bs.v);b.textContent="Вибрация: "+(bs.v?"вкл":"выкл")}
+$("bvb").onclick=function(){bs.v=bs.v?0:1;sv("bs",bs);bsync();if(bs.v&&!bt)bvib("in")};bsync();
 bsay();
 </script>
 </body>
