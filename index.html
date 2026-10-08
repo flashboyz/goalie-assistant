@@ -101,6 +101,14 @@ button.mt{width:100%;text-align:left;cursor:pointer;color:var(--text);font:inher
 #breath .tg button.on{border-color:var(--line);box-shadow:none}
 .sub2{text-align:center;margin:0;font:300 14px/1.4 Comfortaa,"Trebuchet MS",-apple-system,Arial,sans-serif;letter-spacing:.04em;color:var(--muted);opacity:.6}
 .mt svg{filter:drop-shadow(0 0 3px #7fc0ff) drop-shadow(0 0 9px rgba(61,155,255,.85))}
+#card{position:relative;isolation:isolate;min-height:calc(100vh - 100px)}
+#card .hd{display:grid;grid-template-columns:minmax(44px,1fr) auto minmax(44px,1fr);gap:8px}
+#card .hd>b{text-align:center}
+#card .hd #ccnt{width:auto;justify-self:end;white-space:nowrap}
+#card::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.16;background-image:linear-gradient(117deg,transparent 29.8%,rgba(176,221,240,.28) 30%,transparent 30.3%),linear-gradient(24deg,transparent 59.8%,rgba(180,220,239,.2) 60%,transparent 60.2%),repeating-linear-gradient(153deg,transparent 0 91px,rgba(157,211,235,.16) 92px,transparent 93px 187px),repeating-linear-gradient(38deg,transparent 0 157px,rgba(196,229,244,.12) 158px,transparent 160px 271px);background-size:430px 610px,570px 460px,390px 570px,640px 710px}
+#card .fcard h2{color:#ffe18a}
+#card .tip{color:#f6faff}
+#card .tip .ic{color:#ffecb3}
 [hidden]{display:none!important}
 </style>
   <script type="module" crossorigin src="./assets/index-CSg0o9SU.js"></script>
@@ -151,10 +159,10 @@ button.mt{width:100%;text-align:left;cursor:pointer;color:var(--text);font:inher
 <button class="card mt" data-go="breath"><svg viewBox="0 0 60 60" aria-hidden="true"><g fill="#3d9bff" fill-opacity=".22" stroke="#b5deff" stroke-width="1.5"><circle cx="30" cy="19" r="11"/><circle cx="30" cy="19" r="11" transform="rotate(60 30 30)"/><circle cx="30" cy="19" r="11" transform="rotate(120 30 30)"/><circle cx="30" cy="19" r="11" transform="rotate(180 30 30)"/><circle cx="30" cy="19" r="11" transform="rotate(240 30 30)"/><circle cx="30" cy="19" r="11" transform="rotate(300 30 30)"/></g><circle cx="30" cy="30" r="3" fill="#ffd21f"/></svg><span><b style="color:#7fc0ff">Дыхание. Внимание. Действие.</b><br><span class="muted">Маленькие шаги делают большие результаты.</span></span><span class="chev">›</span></button>
 </section>
 
-<section id="card" hidden><header class="hd"><button class="bk" data-go="home" aria-label="Назад">‹</button><span style="visibility:hidden"></span><b>Карточки</b><span id="ccnt"></span></header><div class="pg"><i id="cpg"></i></div>
+<section id="card" hidden><header class="hd"><button class="bk" data-go="home" aria-label="Назад">‹</button><b>Карточки</b><span id="ccnt"></span></header><div class="pg"><i id="cpg"></i></div>
 <div class="fc"><button class="ar l" id="cprev" aria-label="Назад">‹</button><div class="card fcard" id="cbody"></div><button class="ar r" id="cnext" aria-label="Дальше">›</button></div>
 <div class="dots" id="cdots"></div>
-<button class="btn alt" id="cplay">▶ Слушать карточку</button>
+<button class="btn alt" id="cplay">▶ Прослушать</button>
 </section>
 
 <section id="quiz" hidden><header class="hd"><button class="bk" data-go="home" aria-label="Назад">‹</button><span style="visibility:hidden"></span><b>Тесты</b><span id="qcnt"></span></header><div class="pg"><i id="qpg"></i></div><div id="qbody"></div></section>
