@@ -110,6 +110,48 @@ button.mt{width:100%;text-align:left;cursor:pointer;color:var(--text);font:inher
 #card .tip{color:#f6faff}
 #card .tip .ic{color:#ffecb3}
 [hidden]{display:none!important}
+
+/* Таблица Шульте */
+.sch-rotate{text-align:center;margin-top:24px;padding:28px 20px}.sch-phone{font-size:64px;color:var(--yel);text-shadow:0 0 24px rgba(61,155,255,.7)}
+.sch-game{display:none}.sch-panel h2{font:400 24px/1.2 "Russo One",sans-serif;margin:12px 0}.sch-kicker{font:600 12px Oswald,sans-serif;letter-spacing:3px;color:var(--accent)}
+.sch-stats{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--muted)}.sch-stats b{display:block;color:var(--text);font-size:22px;font-variant-numeric:tabular-nums}#sch-next{color:var(--yel)}
+#sch-board{display:grid;grid-template-rows:.9fr 1.15fr .85fr 1.2fr 1fr;gap:7px;min-width:0;min-height:250px}.sch-row{display:grid;gap:7px;min-height:0}
+.sch-cell{min-width:0;min-height:0;padding:4px;border:1px solid rgba(61,155,255,.65);border-radius:12px;background:linear-gradient(145deg,rgba(26,77,142,.8),rgba(7,20,44,.95));box-shadow:inset 0 0 18px rgba(61,155,255,.14),0 0 10px rgba(61,155,255,.08);font:600 clamp(20px,4vh,32px) Oswald,sans-serif;color:var(--text);cursor:pointer;touch-action:manipulation}
+.sch-cell:focus-visible{outline:3px solid var(--yel);outline-offset:2px}.sch-cell.sch-found{border-color:var(--yel);color:var(--yel);background:rgba(255,210,31,.1);box-shadow:inset 0 0 18px rgba(255,210,31,.12);cursor:default}.sch-cell:disabled{opacity:1}.sch-wrong{animation:sch-error .4s ease-out}@keyframes sch-error{0%,60%{border-color:var(--bad);background:rgba(255,123,123,.25)}}
+@media(orientation:landscape){body.schulte-open main{max-width:1100px;padding-bottom:78px}body.schulte-open #schulte .hd{padding-top:8px;padding-bottom:8px}.sch-rotate{display:none}.sch-game{display:grid;grid-template-columns:minmax(190px, .8fr) minmax(0,2fr);gap:16px;align-items:stretch;min-height:270px;height:calc(100dvh - 138px)}.sch-panel{margin:0;overflow:auto;padding:12px}.sch-panel h2{font-size:20px;margin:8px 0}.sch-panel p{font-size:12px;margin:8px 0}.sch-panel .btn{padding:10px;margin:10px 0}.sch-cell:hover:enabled{border-color:var(--yel)}}
+@media(prefers-reduced-motion:reduce){.sch-wrong{animation:none;border-color:var(--bad)}}
+
+/* Плотная мозаика в приглушённой палитре. */
+#sch-board{display:block;overflow:hidden;border:2px solid #273e4b;border-radius:5px;background:#273e4b}
+.sch-mosaic{display:block;width:100%;height:100%;min-height:250px}
+.sch-piece{cursor:pointer;outline:none;touch-action:manipulation}
+.sch-piece path{fill:var(--piece-color);stroke:#304550;stroke-width:2;stroke-linejoin:round;vector-effect:non-scaling-stroke;transition:filter .15s}
+.sch-piece text{fill:#132a36;font:600 25px Oswald,sans-serif;text-anchor:middle;dominant-baseline:central;pointer-events:none}
+.sch-piece[aria-disabled="true"]{cursor:default}
+.sch-piece.sch-found path{filter:brightness(.72) saturate(.55)}.sch-piece.sch-found text{fill:#eef4eb}
+.sch-piece:focus-visible path{stroke:var(--yel);stroke-width:4}
+@media(hover:hover){.sch-piece:hover:not([aria-disabled="true"]) path{filter:brightness(1.12)}}
+.sch-piece.sch-wrong path{animation:mosaic-error .4s}
+@keyframes mosaic-error{50%{fill:#d5908d}}
+@media(prefers-reduced-motion:reduce){.sch-piece path{transition:none}.sch-piece.sch-wrong path{animation:none;stroke:#a83737;stroke-width:4}}
+
+/* Компактная панель: основное пространство — игровому полю. */
+@media(orientation:landscape){
+.sch-game{grid-template-columns:136px minmax(0,1fr);gap:12px}
+.sch-panel{padding:12px 10px;border-radius:14px;align-self:start;overflow:visible}
+.sch-panel .sch-rule{font-size:11px;color:var(--muted);text-align:center;margin:0 0 12px;white-space:nowrap}
+.sch-stats{display:flex;flex-direction:column;gap:8px}
+.sch-stats>div{display:flex;align-items:baseline;justify-content:space-between;gap:6px;font-size:12px}
+.sch-stats b{font-size:18px;line-height:1.2;white-space:nowrap}
+.sch-stats .sch-target{display:flex;flex-direction:column;align-items:center;gap:2px;margin-bottom:4px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.sch-stats .sch-target b{font:500 48px/1.1 Oswald,sans-serif}
+.sch-panel .btn{font-size:13px;padding:9px 6px;border-radius:9px;margin:12px 0 8px;box-shadow:none}
+.sch-panel #sch-status{font-size:11px;line-height:1.35;text-align:center;min-height:30px;margin:0;color:var(--muted)}
+}
+@media(orientation:landscape) and (max-height:420px){
+.sch-panel{padding:9px}.sch-panel .sch-rule{margin-bottom:7px}.sch-stats{gap:5px}.sch-stats .sch-target{padding-bottom:7px;margin-bottom:0}.sch-stats .sch-target b{font-size:36px}.sch-panel .btn{margin:8px 0 6px}.sch-panel #sch-status{min-height:15px}
+}
+@media(orientation:landscape){#schulte .hd{position:relative;justify-content:center}#schulte .hd .bk{position:absolute;left:0}}
 </style>
   <script type="module" crossorigin src="./assets/index-CSg0o9SU.js"></script>
 </head>
@@ -118,6 +160,7 @@ button.mt{width:100%;text-align:left;cursor:pointer;color:var(--text);font:inher
 <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></symbol>
 <symbol id="i-brain" viewBox="0 0 24 24"><path d="M12 4v16M9 4.5A3 3 0 006 8a3 3 0 00-1 5 3 3 0 003 4 3 3 0 004 2.5M15 4.5A3 3 0 0118 8a3 3 0 011 5 3 3 0 01-3 4 3 3 0 01-4 2.5M8 10h4M12 14h4"/></symbol>
 <symbol id="i-test" viewBox="0 0 24 24"><path d="M10 6h10M10 12h10M10 18h10M3.5 6l1.5 1.5L7.5 5M3.5 12l1.5 1.5 2.5-2.5M3.5 18l1.5 1.5 2.5-2.5"/></symbol>
+<symbol id="i-schulte" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 10h18M3 16h18M9 3v7m6 0v6m-6 0v5"/></symbol>
 <symbol id="i-audio" viewBox="0 0 24 24"><path d="M4 15v-3a8 8 0 0116 0v3"/><rect x="3" y="14" width="4" height="7" rx="1.5"/><rect x="17" y="14" width="4" height="7" rx="1.5"/></symbol>
 <symbol id="i-diary" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></symbol>
 <symbol id="i-cup" viewBox="0 0 24 24"><path d="M8 4h8v5a4 4 0 01-8 0zM8 6H4v1a4 4 0 004 4M16 6h4v1a4 4 0 01-4 4M12 13v4M8 20h8M10 17h4"/></symbol>
@@ -151,7 +194,7 @@ button.mt{width:100%;text-align:left;cursor:pointer;color:var(--text);font:inher
 <div class="tiles">
 <button class="tile" data-go="card"><svg class="ic"><use href="#i-brain"/></svg><b>Карточки</b><small>Короткие подсказки для сложных моментов</small></button>
 <button class="tile" data-go="quiz"><svg class="ic"><use href="#i-test"/></svg><b>Тесты</b><small>Узнай больше о себе и своих реакциях</small></button>
-<button class="tile" data-go="audio"><svg class="ic"><use href="#i-audio"/></svg><b>Аудио</b><small>Дыхание, настрой, спокойствие</small></button>
+<button class="tile" data-go="schulte"><svg class="ic"><use href="#i-schulte"/></svg><b>Таблица Шульте</b><small>Внимание, поиск, концентрация</small></button>
 <button class="tile" data-go="diary"><svg class="ic"><use href="#i-diary"/></svg><b>Дневник</b><small>Записывай мысли, чувства, прогресс</small></button>
 </div>
 <button class="tile strip" id="strip"><svg class="ic"><use href="#i-cup"/></svg><span><b>Ближайший матч</b><small id="hstat"></small></span></button>
@@ -167,9 +210,10 @@ button.mt{width:100%;text-align:left;cursor:pointer;color:var(--text);font:inher
 
 <section id="quiz" hidden><header class="hd"><button class="bk" data-go="home" aria-label="Назад">‹</button><span style="visibility:hidden"></span><b>Тесты</b><span id="qcnt"></span></header><div class="pg"><i id="qpg"></i></div><div id="qbody"></div></section>
 
-<section id="audio" hidden><header class="hd"><button class="bk" data-go="home" aria-label="Назад">‹</button><span style="visibility:hidden"></span><b>Аудио</b><span id=""></span></header>
-<div class="tabs" id="atabs"></div><div id="afeat"></div><div class="card" id="alist"></div>
-<p class="muted" id="msg">Озвучка голосом телефона. Скорость: <select id="rate" style="width:auto;padding:4px"><option value="0.85">медленно</option><option value="1" selected>нормально</option><option value="1.15">быстро</option></select></p>
+<section id="schulte" hidden>
+<header class="hd"><button class="bk" data-go="home" aria-label="Назад">‹</button><b>Таблица Шульте</b></header>
+<div class="card sch-rotate"><div class="sch-phone" aria-hidden="true">↻</div><h2>Поверни экран горизонтально</h2><p class="muted">Для игры нужно горизонтальное положение экрана. Если игра уже началась, время на паузе.</p></div>
+<div class="sch-game"><aside class="sch-panel card"><p class="sch-rule">По порядку · 1–25</p><div class="sch-stats"><div class="sch-target">Найди<b id="sch-next">1</b></div><div>Время<b id="sch-time">0.0 с</b></div><div>Ошибки<b id="sch-errors">0</b></div></div><button class="btn" id="sch-start">Начать</button><p id="sch-status" class="muted" role="status" aria-live="polite">Нажми «Начать».</p></aside><div id="sch-board" aria-label="Игровое поле: числа от 1 до 25"></div></div>
 </section>
 
 <section id="diary" hidden><header class="hd"><button class="bk" data-go="home" aria-label="Назад">‹</button><span style="visibility:hidden"></span><b>Дневник</b><span id=""></span></header>
@@ -199,7 +243,7 @@ button.mt{width:100%;text-align:left;cursor:pointer;color:var(--text);font:inher
 </section>
 </main>
 <nav>
-<button data-t="home" class="on"><svg class="ic"><use href="#i-home"/></svg>Главная</button><button data-t="card"><svg class="ic"><use href="#i-brain"/></svg>Карточки</button><button data-t="quiz"><svg class="ic"><use href="#i-test"/></svg>Тесты</button><button data-t="audio"><svg class="ic"><use href="#i-audio"/></svg>Аудио</button><button data-t="diary"><svg class="ic"><use href="#i-diary"/></svg>Дневник</button>
+<button data-t="home" class="on"><svg class="ic"><use href="#i-home"/></svg>Главная</button><button data-t="card"><svg class="ic"><use href="#i-brain"/></svg>Карточки</button><button data-t="quiz"><svg class="ic"><use href="#i-test"/></svg>Тесты</button><button data-t="schulte"><svg class="ic"><use href="#i-schulte"/></svg>Шульте</button><button data-t="diary"><svg class="ic"><use href="#i-diary"/></svg>Дневник</button>
 </nav>
 <script>
 function $(id){return document.getElementById(id)}
@@ -241,7 +285,7 @@ var tracks=[
 {t:"Перед игрой: коротко",c:"Настрой",x:secs[1].i.join(" ")}];
 tracks.forEach(function(t){var m=Math.round(t.x.split(" ").length/2.2);t.d=Math.floor(m/60)+":"+("0"+m%60).slice(-2)});
 var cur="home";
-function go(t){stop();bstop();cur=t;each("nav button",function(x){x.classList.toggle("on",x.dataset.t===t)});["home","card","quiz","audio","diary","breath"].forEach(function(id){$(id).hidden=(id!==t)});window.scrollTo(0,0);if(t==="diary")dshow()}
+function go(t){stop();bstop();cur=t;document.body.classList.toggle("schulte-open",t==="schulte");schSync();each("nav button",function(x){x.classList.toggle("on",x.dataset.t===t)});["home","card","quiz","schulte","diary","breath"].forEach(function(id){$(id).hidden=(id!==t)});window.scrollTo(0,0);if(t==="diary")dshow()}
 each("nav button",function(b){b.onclick=function(){go(b.dataset.t)}});
 each("[data-go]",function(b){b.onclick=function(){go(b.dataset.go)}});
 /* игра */
@@ -250,8 +294,8 @@ function gupd(){var t="Укажи время игры",hl=false;if(gt.value){var
 gt.onchange=function(){sv("gt",gt.value);gupd()};gupd();setInterval(gupd,30000);
 $("strip").onclick=function(){$("gpanel").hidden=!$("gpanel").hidden};
 /* речь */
-function say(txt,done){if(!("speechSynthesis" in window)){$("msg").textContent="Озвучка не поддерживается в этом браузере.";return}speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(txt);u.lang="ru-RU";u.rate=parseFloat($("rate").value);var v=speechSynthesis.getVoices().filter(function(x){return x.lang&&x.lang.indexOf("ru")===0})[0];if(v)u.voice=v;u.onend=u.onerror=done||null;speechSynthesis.speak(u)}
-function stop(){if("speechSynthesis" in window)speechSynthesis.cancel();if(typeof pl!=="undefined"&&pl!==-1){pl=-1;ra()}}
+function say(txt,done){if(!("speechSynthesis" in window)){alert("Озвучка не поддерживается в этом браузере.");return}speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(txt);u.lang="ru-RU";u.rate=1;var v=speechSynthesis.getVoices().filter(function(x){return x.lang&&x.lang.indexOf("ru")===0})[0];if(v)u.voice=v;u.onend=u.onerror=done||null;speechSynthesis.speak(u)}
+function stop(){if("speechSynthesis" in window)speechSynthesis.cancel();}
 /* карточки */
 var ci=0;
 function rc(){var c=cards[ci];$("cbody").innerHTML='<div class="ring">'+ic("brain")+'</div><h2></h2><p></p><div class="tip">'+ic("bulb")+'<span></span></div>';var b=$("cbody");b.querySelector("h2").textContent=c[0];b.querySelector("p").textContent=c[1];b.querySelector(".tip span").textContent=c[2];
@@ -269,13 +313,74 @@ var ex=document.createElement("div");ex.className="exp";var nx=document.createEl
 q.o.forEach(function(tx,i){var b=document.createElement("button");b.className="opt";b.textContent=tx;b.onclick=function(){if(done)return;done=true;if(i===q.a)score++;Array.prototype.forEach.call(c.querySelectorAll(".opt"),function(x,k){if(k===q.a)x.classList.add("ok");else if(k===i)x.classList.add("bad")});ex.textContent=q.e;nx.hidden=false};c.appendChild(b)});
 c.appendChild(ex);box.appendChild(c);box.appendChild(nx)}
 rq();
-/* аудио */
-var pl=-1,cat="Все";
-function ra(){var T=$("atabs");T.innerHTML="";["Все","Дыхание","Настрой","Уверенность"].forEach(function(n){var b=document.createElement("button");b.textContent=n;b.className=n===cat?"on":"";b.onclick=function(){cat=n;ra()};T.appendChild(b)});
-var L=tracks.map(function(t,i){return{t:t,i:i}}).filter(function(o){return cat==="Все"||o.t.c===cat});var F=$("afeat"),B=$("alist");F.innerHTML="";B.innerHTML="";B.hidden=L.length<2;
-L.forEach(function(o,k){var d=document.createElement("div"),on=pl===o.i;d.className=k===0?"card feat":"tr";d.innerHTML='<button class="play'+(k?" sm":"")+'">'+(on?"■":"▶")+'</button><div><b></b><small></small></div>'+(k?ic("wave"):"");d.querySelector("b").textContent=o.t.t;d.querySelector("small").textContent=o.t.d+" · "+o.t.c;if(k)d.lastChild.setAttribute("class","ic w");
-d.querySelector("button").onclick=function(){if(pl===o.i){stop();return}pl=o.i;ra();say(o.t.x,function(){pl=-1;ra()})};(k===0?F:B).appendChild(d)})}
-ra();
+/* Таблица Шульте: время идёт только на видимом горизонтальном поле. */
+var sch={active:false,next:1,errors:0,elapsed:0,since:null},schLandscape=window.matchMedia("(orientation: landscape)");
+function schAllowed(){return cur==="schulte"&&schLandscape.matches&&!document.hidden}
+function schTime(){return sch.elapsed+(sch.since===null?0:performance.now()-sch.since)}
+function schTick(){$("sch-time").textContent=(schTime()/1000).toFixed(1)+" с"}
+function schSync(){if(!sch)return;var running=sch.active&&schAllowed();if(!running&&sch.since!==null){sch.elapsed+=performance.now()-sch.since;sch.since=null}else if(running&&sch.since===null)sch.since=performance.now();schTick()}
+function schShuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),v=a[i];a[i]=a[j];a[j]=v}return a}
+var schLayouts=[
+{seed:0,tri:[3,16],round:[5,12,19]},
+{seed:1,tri:[6,14],round:[0,8,17]},
+{seed:2,tri:[0,18],round:[3,10,14]},
+{seed:3,tri:[8,15],round:[1,7,18]},
+{seed:4,tri:[4,11],round:[6,13,15]}
+];
+var schLastLayout=Number(ld("sch-layout",-1));
+if(!Number.isInteger(schLastLayout)||schLastLayout< -1||schLastLayout>4)schLastLayout=-1;
+function schBoard(play){
+var layoutIndex=(schLastLayout+1)%schLayouts.length,layout=schLayouts[layoutIndex];
+if(play){schLastLayout=layoutIndex;sv("sch-layout",layoutIndex)}
+var board=$("sch-board");board.innerHTML="";
+var ns="http://www.w3.org/2000/svg",svg=document.createElementNS(ns,"svg");svg.setAttribute("viewBox","0 0 720 420");svg.setAttribute("preserveAspectRatio","none");svg.setAttribute("class","sch-mosaic");svg.setAttribute("aria-label","Мозаика "+(layoutIndex+1)+" из 5: 25 чисел");svg.dataset.layout=layoutIndex;
+var points=[],regions=[],colors=["#95afa0","#a7b4ca","#c7b985","#b7a7bf","#c69e98","#88b1ad","#aab88d"];
+for(var r=0;r<=4;r++){points[r]=[];for(var c=0;c<=5;c++)points[r][c]=[c*144+(c===0||c===5?0:((r*31+c*17+layout.seed*19)%51)-25),r*105+(r===0||r===4?0:((c*23+r*11+layout.seed*13)%35)-17)]}
+function path(p){return "M"+p.map(function(v){return v.join(",")}).join("L")+"Z"}
+function center(p){return p.reduce(function(a,v){return[a[0]+v[0]/p.length,a[1]+v[1]/p.length]},[0,0])}
+// Each boundary is built once and reused backwards by the neighbouring piece.
+var edges={};
+function boundary(a,b,id,other){var key=[a.join(","),b.join(",")].sort().join("/");
+if(!edges[key]){var extra=other>=0&&layout.tri.indexOf(id)===-1&&layout.tri.indexOf(other)===-1;
+var dx=b[0]-a[0],dy=b[1]-a[1],length=Math.hypot(dx,dy),bend=((id+other+layout.seed)%2?1:-1)*(13+(id*7+other*3+layout.seed)%12),t=.35+((id+other+layout.seed)%4)*.1;
+edges[key]={a:a,points:extra?[a,[a[0]+dx*t-dy/length*bend,a[1]+dy*t+dx/length*bend],b]:[a,b]}}
+var edge=edges[key];return edge.a===a?edge.points:edge.points.slice().reverse()}
+function outline(p,id,r,c){var neighbors=[r? id-5:-1,c<4?id+1:-1,r<3?id+5:-1,c?id-1:-1],result=[];
+for(var k=0;k<4;k++)result=result.concat(boundary(p[k],p[(k+1)%4],id,neighbors[k]).slice(0,-1));return result}
+function clearance(p,x,y){var best=Infinity;for(var k=0;k<p.length;k++){var a=p[k],b=p[(k+1)%p.length],dx=b[0]-a[0],dy=b[1]-a[1],t=Math.max(0,Math.min(1,((x-a[0])*dx+(y-a[1])*dy)/(dx*dx+dy*dy)));best=Math.min(best,Math.hypot(x-a[0]-t*dx,y-a[1]-t*dy))}return best}
+function contains(p,x,y){var hit=false;for(var i=0,j=p.length-1;i<p.length;j=i++){var a=p[i],b=p[j];if((a[1]>y)!==(b[1]>y)&&x<(b[0]-a[0])*(y-a[1])/(b[1]-a[1])+a[0])hit=!hit}return hit}
+var pieces=[],candidates=[];
+for(var r=0;r<4;r++)for(var c=0;c<5;c++){
+var p=[points[r][c],points[r][c+1],points[r+1][c+1],points[r+1][c]],id=r*5+c,poly=outline(p,id,r,c),color=(r+c+layout.seed*2)%7;
+if(layout.tri.indexOf(id)!==-1){var flip=(layout.seed+id)%2,t1=flip?[p[0],p[1],p[2]]:[p[0],p[1],p[3]],t2=flip?[p[0],p[2],p[3]]:[p[1],p[2],p[3]];pieces.push({poly:t1,at:center(t1),color:color},{poly:t2,at:center(t2),color:(color+2)%7});continue}
+var piece={poly:poly,at:center(p),color:color},spots=[],xs=poly.map(function(v){return v[0]}),ys=poly.map(function(v){return v[1]});
+for(var y=Math.min.apply(null,ys)+16;y<Math.max.apply(null,ys)-16;y+=6)for(var x=Math.min.apply(null,xs)+16;x<Math.max.apply(null,xs)-16;x+=6)if(contains(poly,x,y)){var space=clearance(poly,x,y);if(space>=16)spots.push({x:x,y:y,space:space})}
+var best=null;
+spots.forEach(function(pos){var radius=Math.min(41,pos.space-3);if(radius<34)return;var label=spots.filter(function(q){return Math.hypot(q.x-pos.x,q.y-pos.y)>=radius+20}).sort(function(a,b){return b.space-a.space})[0];if(label&&(!best||radius>best.rad))best={x:pos.x,y:pos.y,rad:radius,label:[label.x,label.y]}});
+if(best){piece.circle=best;candidates.push(piece)}pieces.push(piece)
+}
+// Choose the whole group by spatial spread, not the first equally large cells.
+var spacious=candidates.filter(function(piece){return piece.circle.rad>=39});
+var pool=spacious.length>=3?spacious:candidates,chosen=[],bestSpread=-Infinity;
+function circleDistance(a,b){return Math.hypot((a.x-b.x)/720,(a.y-b.y)/420)}
+for(var i=0;i<pool.length-2;i++)for(var j=i+1;j<pool.length-1;j++)for(var k=j+1;k<pool.length;k++){
+var a=pool[i].circle,b=pool[j].circle,c=pool[k].circle;
+var distances=[circleDistance(a,b),circleDistance(a,c),circleDistance(b,c)];
+var area=Math.abs((b.x-a.x)*(c.y-a.y)-(c.x-a.x)*(b.y-a.y))/(720*420);
+var spread=Math.min.apply(null,distances)+area*.7+distances.reduce(function(sum,v){return sum+v},0)*.1;
+if(spread>bestSpread){bestSpread=spread;chosen=[pool[i],pool[j],pool[k]]}
+}
+pieces.forEach(function(piece){var color=piece.color;if(chosen.indexOf(piece)===-1){regions.push({d:path(piece.poly),at:piece.at,color:color});return}
+var q=piece.circle,x=q.x,y=q.y,rad=q.rad,circle="M"+(x-rad)+","+y+"a"+rad+","+rad+" 0 1,0 "+(2*rad)+",0a"+rad+","+rad+" 0 1,0 "+(-2*rad)+",0Z";
+regions.push({d:path(piece.poly)+circle,at:q.label,color:color},{d:circle,at:[x,y],color:(color+3)%7,circle:true})});
+var nums=schShuffle(Array.from({length:25},function(_,i){return i+1}));
+regions.forEach(function(region,i){var cell=document.createElementNS(ns,"g"),shape=document.createElementNS(ns,"path"),label=document.createElementNS(ns,"text");cell.setAttribute("class","sch-piece");cell.setAttribute("role","button");cell.setAttribute("tabindex",play?"0":"-1");cell.setAttribute("aria-label",play?String(nums[i]):"Начни игру");cell.setAttribute("aria-disabled",String(!play));cell.style.setProperty("--piece-color",colors[region.color]);cell.disabled=!play;cell.dataset.number=nums[i];shape.setAttribute("d",region.d);shape.setAttribute("fill-rule","evenodd");label.setAttribute("x",region.at[0]);label.setAttribute("y",region.at[1]);label.textContent=play?nums[i]:"·";cell.appendChild(shape);cell.appendChild(label);cell.onclick=schPick;cell.onkeydown=function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();schPick({currentTarget:cell})}};svg.appendChild(cell)});board.appendChild(svg)
+}
+function schPick(e){if(!sch.active||!schAllowed())return;var cell=e.currentTarget,n=Number(cell.dataset.number);if(cell.disabled)return;if(n!==sch.next){sch.errors++;$("sch-errors").textContent=sch.errors;cell.classList.remove("sch-wrong");void cell.offsetWidth;cell.classList.add("sch-wrong");$("sch-status").textContent="Ищи "+sch.next+". Не спеши.";return}
+cell.disabled=true;cell.setAttribute("aria-disabled","true");cell.setAttribute("tabindex","-1");cell.classList.add("sch-found");sch.next++;$("sch-next").textContent=sch.next<=25?sch.next:"✓";$("sch-status").textContent=sch.next<=25?(sch.next-1)+" / 25 найдено":"";
+if(sch.next===26){sch.active=false;schSync();$("sch-status").textContent="Готово · 25 / 25";$("sch-start").textContent="Сыграть ещё"}}
+$("sch-start").onclick=function(){if(!schAllowed())return;sch={active:true,next:1,errors:0,elapsed:0,since:null};$("sch-next").textContent="1";$("sch-errors").textContent="0";$("sch-status").textContent="0 / 25 найдено";this.textContent="Заново";schBoard(true);schSync()};
+schLandscape.addEventListener("change",schSync);document.addEventListener("visibilitychange",schSync);setInterval(schTick,100);schBoard(false);
 /* дневник */
 var mood=0,ML=["Грустно","Спокойно","Нормально","Уверенно","Отлично"],MC=[-4,1.5,3.5,5.5,7.5];
 function rm(){$("moods").innerHTML=ML.map(function(n,i){var c=MC[i],y=c<0?16:14.5;return '<button class="'+(mood===i+1?"on":"")+'" data-m="'+(i+1)+'"><svg viewBox="0 0 24 24" class="fc2"><circle cx="12" cy="12" r="10"/><circle cx="9" cy="10" r=".9" fill="currentColor"/><circle cx="15" cy="10" r=".9" fill="currentColor"/><path d="M8 '+y+'Q12 '+(y+c)+' 16 '+y+'"/></svg>'+n+'</button>'}).join("");each("#moods button",function(b){b.onclick=function(){mood=parseInt(b.dataset.m,10);rm()}})}
